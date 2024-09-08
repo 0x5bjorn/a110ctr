@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "logger.h"
+
 typedef struct Arena_t
 {
     unsigned char *buf;
@@ -22,6 +24,7 @@ void arena_free(Arena_t *arena);
 
 Arena_t arena_init(size_t size)
 {
+    LOG("Initializing arena for size %d", size);
     void *buffer = malloc(size);
     return (Arena_t){.buf = buffer, .size = size, .offset = 0};
 }
@@ -60,6 +63,7 @@ void *arena_alloc(Arena_t *arena, size_t size)
 
 void arena_free(Arena_t *arena)
 {
+    LOG("Freeing arena of size %d", arena->size);
     arena->offset = 0;
 }
 
